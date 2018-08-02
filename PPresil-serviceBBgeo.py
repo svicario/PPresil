@@ -47,6 +47,7 @@ west,south,east,north =read_csv("BBfile.txt", index_col=None, header=None,delim_
 if not(south==west==north==east==0):
     ds = gdal.Open(path+"/"+file+".envi")
     sd = gdal.Translate(path+"/"+"BB_"+file+".envi", path+"/"+file+".envi", projWin=[west, north, east,south],format="ENVI")
+    tmp=sd.ReadAsArray()[1,1,1]
     #ds = None
     file="BB_"+file
 file=path+"/"+file
