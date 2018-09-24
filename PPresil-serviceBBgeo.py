@@ -170,11 +170,14 @@ def FeatureExtraction(y,func=fl,freq=365, step=1,obs=False, k=[1,2,3],years=1, t
     if not obs:
         y=y.predict(MakeLinearSinus(np.arange(0,freq*years,step), k=k, trend=trend, YAM=YAM))
         y=pd.Series(y)
+        end=freq/step
         #y=func(np.arange(freq*years), y, k=k)
     elif y.__class__==pd.Series().__class__:
         y=pd.Series(y.values,index=y.index.get_level_values("Days").values)
+        end=None
     M=y.mean()
-    CV=(y.var()**0.5)/M
+    #CV=(y.var()**0.5)/M
+    CV=(y[:end].var()**0.5)/y[:end].mean()
     anomal=[]
     pos=(y.idxmax()*step) % 365.
     if years>1:
