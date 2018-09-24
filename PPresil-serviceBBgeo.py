@@ -42,6 +42,8 @@ MemFilePath="/Tmp/MSaviFeat"
 #path to get input stack in envi format
 path="Dati_SatPeneda"
 file="MSAVI_AOI_MASKED_STACK_NEW"
+filematch=set([".".join(x.split(".")[:-1]) for x in os.listdir(path) if x.split(".")[-1] in ["hdr","img","envi"]])
+if len(filematch)==1: file=filematch.pop()
 west,south,east,north =read_csv("BBfile.txt", index_col=None, header=None,delim_whitespace=True).values.flatten().tolist()
 
 if not(south==west==north==east==0):
